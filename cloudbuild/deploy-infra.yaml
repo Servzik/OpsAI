@@ -1,0 +1,22 @@
+steps:
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: ['auth', 'configure-docker']
+
+  - name: 'hashicorp/terraform:1.0.0'
+    args: ['init']
+
+  - name: 'hashicorp/terraform:1.0.0'
+    args: ['plan', '-out=tfplan']
+    id: 'terraform-plan'
+
+  # Approval needed to apply the plan
+  - name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        echo "Terraform plan generated. Review it and approve if everything looks good."
+        read -p "Press Enter to continue..."
+
+  - name: 'hashicorp/terraform:1.0.0'
+    args: ['apply', '-auto-approve', 'tfplan']
