@@ -7,11 +7,11 @@
 - **Memory Metrics:** Gather memory utilization (used, free, cached, etc.).
 - **Disk Metrics:** Monitor disk space (used, available, I/O rates).
 
-#### 3. Application Logs:
+#### Application Logs:
 For application logs, consider using rsyslog or syslog-ng to centralize logs.
 - Configure applications to log to a common location (e.g., /var/log/appname.log).
 - Telegraf also has an exec input plugin that can execute custom scripts to collect logs - [Exec & Execd.](https://www.influxdata.com/blog/plugin-spotlight-exec-execd/)
-### Structured Dataset Creation:
+### 3. Structured Dataset Creation:
 - Combine metric data (CPU, memory, disk) and logs into a single dataset.
 - Each row represents a timestamp, and columns include metrics (CPU usage, memory utilization, disk space) and apllication log features (e.g. error counts, warnings).
 - Additional features could include:
