@@ -10,8 +10,8 @@ module "subnet" {
   region      = "us-central1"
 }
 
-module "gke" {
-  source       = "./gke"
+module "cluster" {
+  source       = "./cluster"
   cluster_name = "test-gke-cluster"
   node_count   = 2
   machine_type = "n1-standard-2"
