@@ -11,12 +11,14 @@ steps:
 
   # Approval needed to apply the plan
   - name: 'gcr.io/cloud-builders/gcloud'
+    id: 'approval'
+    waitFor: ['terraform-plan']
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        echo "Terraform plan generated. Review it and approve if everything looks good."
-        read -p "Press Enter to continue..."
+        echo "Terraform plan generated. Review it in the Cloud Build UI and approve to proceed."
 
   - name: 'hashicorp/terraform:1.0.0'
     args: ['apply', '-auto-approve', 'tfplan']
+    waitFor: ['approval']
