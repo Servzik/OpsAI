@@ -24,6 +24,14 @@ clf = IsolationForest(contamination=0.05, random_state=42)
 # Train the model
 clf.fit(X_train_scaled)
 
+#Test the model
+y_pred = clf.predict(X_test_scaled)
+
+#Lets save the test output in a file
+report = classification_report(y_test, y_pred)
+with open('classification_report.txt', 'w') as f:
+    f.write(report)
+  
 # Save the model to a file
 model_filename = 'isolation_forest_model.pkl' #adjust the path accordingly
 joblib.dump(clf, model_filename)
